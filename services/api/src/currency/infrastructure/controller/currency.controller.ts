@@ -25,7 +25,6 @@ export class CurrencyController {
   }
 
   async findAllSubscribedCurrencies(req: Request, res: Response) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
     try {
       const currencies = await this.getSubscribedCurrencies.execute();
       res.status(200).json({ data: currencies });
@@ -50,4 +49,5 @@ export class CurrencyController {
       res.status(status).json({ data: err.message });
     }
   }
+
 }

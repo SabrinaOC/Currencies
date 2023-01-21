@@ -31,7 +31,7 @@ async function connectToDatabase(connectionUri: string) {
 connectToDatabase(MONGODB_URI);
 
 // [Script execution]
-const retrievedData = retrieveData().then(res => {
+const retrievedData = retrieveData('UsD').then(res => {
   console.log('RES FOREX SER: ', res);
   console.log("Executing service...");
   process.exit(0)

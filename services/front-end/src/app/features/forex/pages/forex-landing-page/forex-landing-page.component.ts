@@ -24,28 +24,67 @@ export class ForexLandingPageComponent implements OnInit {
     {
       name: 'British Pound Sterling',
       code: 'GBP'
+    },
+    {
+      name: 'Colombian Peso',
+      code: 'COP'
+    },
+    {
+      name: 'Chinese Yuan',
+      code: 'CNY'
     }
-    // {
-    //   name: 
-    //   code:
-    // }
-    // {
-    //   name: 
-    //   code:
-    // }
-]
+];
+  newSelectedCurrency: string;
+  subscriptions: any;
   form = new FormGroup ({
     divisa: new FormControl()
   })
   constructor(private currenciesService : CurrenciesService) { }
 
   ngOnInit(): void {
-    
+    this.getAllSubscriptions();
   }
 
+  /**
+   * 
+   * @param event 
+   */
+  currencyChanged(event) {
+    console.log('CAMBIO SELECT: ', event.value)
+    this.newSelectedCurrency = event.value;
+  }
+
+  /**
+   * 
+   */
+  addNewCurrency() {
+    console.log('entra en addNewCurrency')
+    this.currenciesService.subsribeToCurrency(this.newSelectedCurrency).subscribe(res => {
+      console.log('respuesta de la API: ', res)
+      //refresh data shown
+      this.getAllSubscriptions();
+    })
+  }
+
+  /**
+   * 
+   * @param currencyCode 
+   */
+  removeCurrency(currencyCode: string) {
+    this.currenciesService.unsubsribeToCurrency(currencyCode).subscribe(res => {
+      console.log('respuesta de la API: ', res)
+      //refresh data shown
+      this.getAllSubscriptions();
+    })
+  }
+
+  /**
+   * 
+   */
   getAllSubscriptions(){
     this.currenciesService.getAllCurrrenciesSubscribed().subscribe(res => {
-      console.log('respuesta de la API: ', res)
+      this.subscriptions = res.data;
+      console.log('subscripciones: ', this.subscriptions)
     })
   }
 
