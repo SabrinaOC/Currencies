@@ -9,10 +9,10 @@ import { CurrenciesService } from 'src/app/features/services/currencies.service'
 })
 export class ForexLandingPageComponent implements OnInit {
   divisas = [
-    {
-      name: 'Euro',
-      code: 'EuR'
-    },
+    // {
+    //   name: 'Euro',
+    //   code: 'EuR'
+    // },
     {
       name: 'United States Dollar',
       code: 'UsD'
@@ -56,13 +56,20 @@ export class ForexLandingPageComponent implements OnInit {
 
   /**
    * 
+   * @param selectedCurrency 
    */
-  addNewCurrency() {
+  addNewCurrency(selectedCurrency?: string) {
+    console.log('selectedCurrency param:', selectedCurrency);
+    
+    if(selectedCurrency){
+      this.newSelectedCurrency = selectedCurrency;
+    }
     console.log('entra en addNewCurrency')
     this.currenciesService.subsribeToCurrency(this.newSelectedCurrency).subscribe(res => {
       console.log('respuesta de la API: ', res)
       //refresh data shown
       this.getAllSubscriptions();
+      this.form.reset();
     })
   }
 

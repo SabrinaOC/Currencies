@@ -15,6 +15,7 @@ declare var MONGODB_URI: string;
  */
 async function connectToDatabase(connectionUri: string) {
   return new Promise((resolve, reject) => {
+    console.log('conectado a ', connectionUri),
     // From mongoose@6.x.x onwards useNewUrlParser, useUnifiedTopology,
     // useCreateIndex are deprecated and default to true
     mongoose
@@ -49,7 +50,7 @@ app.get('/health', async (req, res) => {
 // [Express start]
 
 const PORT: number | string = process.env.PORT || 8080
-app.listen(PORT, () => {
+app.listen(PORT, (data) => {
   console.log(`App listening to ${PORT}....`)
   console.log('Press Ctrl+C to quit.')
 })

@@ -13,8 +13,8 @@ declare var MONGODB_URI: string;
  * @returns Promise<string>
  */
 async function connectToDatabase(connectionUri: string) {
-  //connectionUri = 'mongodb://localhost:27017/home-assignment-db';
-  console.log('conectando a ', connectionUri);
+  connectionUri = 'mongodb://root:pass@home-assignment-db:27017/testdb?authSource=admin';
+  console.log('conectando a SAAAA:', connectionUri);
   
   return new Promise((resolve, reject) => {
     // From mongoose@6.x.x onwards useNewUrlParser, useUnifiedTopology,
@@ -28,26 +28,13 @@ async function connectToDatabase(connectionUri: string) {
       });
   });
 }
-connectToDatabase(MONGODB_URI);
+connectToDatabase(MONGODB_URI).then( mon =>{//'mongodb://root:pass@127.0.0.1:27017/testdb'
 
-// [Script execution]
-const retrievedData = retrieveData('UsD').then(res => {
-  console.log('RES FOREX SER: ', res);
-  console.log("Executing service...");
-  process.exit(0)
-});
-//console.debug(retrievedData);
+  console.log('CONECTADA', mon)
+  // [Script execution]
+  const retrievedData = retrieveData()//.then(res => {  
+  // });
+}).catch(err => {
+  console.log('error en conexion: ', err)
+})
 
-
-// fetch('https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=B9U2J4UKZTMRB030',{headers: {'User-Agent': 'request'}, method: 'GET'})
-// .then(response => response.json())
-// .then(data => {
-//   console.log(data, 'SAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-//   console.log("Executing service...");
-//   process.exit(0)
-// })
-
-
-
-
-;

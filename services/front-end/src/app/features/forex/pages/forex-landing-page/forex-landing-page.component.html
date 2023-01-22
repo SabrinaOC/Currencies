@@ -1,5 +1,9 @@
-<div style="margin-top: 30px; display: flex; justify-content: end;">
-  <mat-form-field appearance="fill">
+<div style="margin-top: 30px; display: flex; justify-content: space-between;" *ngIf="subscriptions?.length > 0">
+  <div style="margin-top: auto">
+    <h1>Currencies</h1>
+  </div>
+  <div style="margin-top: 30px; display: flex; justify-content: end;">
+    <mat-form-field appearance="fill">
     <mat-label>Choose one</mat-label>
     <mat-select (selectionChange)="currencyChanged($event)">
       <mat-option *ngFor="let divisa of divisas" [value]="divisa.code">{{divisa.name}}</mat-option>
@@ -11,6 +15,8 @@
     </mat-error>-->
   </mat-form-field>
   <button mat-raised-button  style="height : 54px; margin-left: 15px; background-color: rgb(13, 4, 139); color: white" (click)="addNewCurrency()">Subscribe</button>
+  </div>
+  
 </div>
 <mat-card class="main-card" *ngFor="let subs of subscriptions">
   <mat-card-header>
@@ -29,4 +35,18 @@
   <mat-card-footer>
   </mat-card-footer>
 </mat-card>
+<mat-divider></mat-divider>
+<ng-container *ngIf="subscriptions?.length === 0">
+  <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <h1>Subscribe to your fist currency</h1>
+  </div>
+  <div class="first-select">
+      <mat-card class="fresh-currency-card" *ngFor="let d of divisas" (click)="addNewCurrency(d.code)">
+        <mat-card-header>
+          <mat-card-title>{{d.code}}</mat-card-title>
+          <mat-card-subtitle>{{d.name}}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+  </div>
+</ng-container>
 
