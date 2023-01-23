@@ -54,20 +54,53 @@
       </mat-card>
       <!-- end 1st card to show current val-->
       <div class="currency-values-box">
-          <mat-card-title>Real time </mat-card-title>
-          <mat-card-subtitle>Exchange rate {{ subs.currentForex?._exchangeRate }}</mat-card-subtitle>
-          <mat-card-subtitle>Bid price {{ subs.currentForex?._bidPrice }}</mat-card-subtitle>
-          <mat-card-subtitle>Ask price {{ subs.currentForex?._askPrice }}</mat-card-subtitle>
-          <mat-card-subtitle>Last updated {{ subs.currentForex?._createdAt || date }}</mat-card-subtitle>
+        <div style="display: flex; justify-content: center;">
+          <h2 class="title">Real time</h2>
+          <p style="display: block;">Exchange rate <span class="exchange">{{ subs.currentForex?._exchangeRate }}</span></p>
+        </div>
+        <div style="display: flex; flex-direction:column; margin-top: 20px;">
+          <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+          <p>Bid price: <span class="transaction-price" style="color: red">{{ subs.currentForex?._bidPrice }}</span></p>
+          <p>Ask price: <span class="transaction-price" style="color: green">{{ subs.currentForex?._askPrice }}</span></p>
+          </div>
+          <div style="display: flex; justify-content: center;">
+            <p style="font-size: small; font-style: italic; margin-top:30px ">Last updated: {{ subs.currentForex?._createdAt || date }}</p>
+          </div>
+        </div>
+        
       </div>
       <!-- end 1st card to show current val-->
+
+      <!-- 2nd card to show current val-->
       <div class="currency-values-box">
-        <mat-card-title>Market closing price yesterday</mat-card-title>
-        <mat-card-subtitle>Exchange rate {{ subs.historyForex?._exchangeRate != null ? subs.historyForex?._exchangeRate : 'No data registered'}}</mat-card-subtitle>
-        <mat-card-subtitle>Bid price {{ subs.historyForex?._bidPrice  != null ? subs.historyForex?._bidPrice : 'No data registered'}}</mat-card-subtitle>
-        <mat-card-subtitle>Ask price {{ subs.historyForex?._askPrice  != null ? subs.historyForex?._askPrice : 'No data registered'}}</mat-card-subtitle>
-        <mat-card-subtitle>Last updated {{ subs.historyForex?._createdAt  != null ? (subs.historyForex?._createdAt || date) : 'No data registered' }}</mat-card-subtitle>
-    </div>
+        <div style="display: flex; justify-content: center;">
+          <h2 class="title">Closing price yesterday</h2>
+          <p style="display: block;">Exchange rate
+            <span class="{{
+              subs.historyForex?._exchangeRate != null ? 'exchange' : 'no-exchange'
+            }}">{{ subs.historyForex?._exchangeRate != null ? subs.historyForex?._exchangeRate : 'No data registered'}}</span>
+          </p>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+          <p>Bid price: 
+            <span class="{{
+            subs.historyForex?._bidPrice  != null ? 'transaction-price' : 'no-transaction-price'
+          }}" style="color:red">
+          {{ subs.historyForex?._bidPrice  != null ? subs.historyForex?._bidPrice : 'No data registered'}}</span>
+        </p>
+          <p>Ask price: 
+            <span class="{{
+              subs.historyForex?._askPrice  != null ? 'transaction-price' : 'no-transaction-price'
+            }}" style="color:green">
+              {{ subs.historyForex?._askPrice  != null ? subs.historyForex?._askPrice : 'No data registered'}}</span>
+          </p>
+        </div>
+        <div style="display: flex; justify-content: center;">
+          <p style="font-size: small; font-style: italic; padding-top: auto; margin-top:30px">Last updated: {{ subs.historyForex?._createdAt  != null ? (subs.historyForex?._createdAt || date) : 'No data registered' }}</p>
+        </div>
+      </div>
+      <!-- end 2nd card to show current val-->
+      
     </div>
   </mat-card-content>
   <mat-card-actions style="display: flex; justify-content: end;">
