@@ -15,7 +15,9 @@ export class RegisterForex {
       toCurrencyCode: forexReq.toCurrencyCode,
       toCurrencyName: forexReq.toCurrencyName,
       exchangeRate: forexReq.exchangeRate,
-      bidPrice: forexReq.bidPrice
+      bidPrice: forexReq.bidPrice,
+      askPrice: forexReq.askPrice,
+      createdAt: forexReq.createdAt
     });
     await this.forexRepository.registerForex(newForex as Forex);
     return newForex;

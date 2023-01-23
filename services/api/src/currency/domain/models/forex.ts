@@ -1,28 +1,28 @@
 import { Types } from "mongoose";
-import { CurrencyNotSubscribedError, IncorrectCurrencyError } from "../errors";
-
 export class Forex {
   private _id: Types.ObjectId;
   private _fromCurrencyCode: string;
   private _fromCurrencyName: string;
   private _toCurrencyCode: string;
   private _toCurrencyName: string;
-  private _exchangeRate: string;
-  // private _date: string;
-  private _bidPrice: string;
+  private _exchangeRate: number;
+  private _bidPrice: number;
+  private _askPrice: number;
+  private _createdAt: Date
 
-  private constructor({ id, fromCurrencyCode, fromCurrencyName,toCurrencyCode, toCurrencyName, exchangeRate, bidPrice }) {
+  private constructor({ id, fromCurrencyCode, fromCurrencyName,toCurrencyCode, toCurrencyName, exchangeRate, bidPrice, askPrice, createdAt }) {
     this._id = id;
     this._fromCurrencyCode = fromCurrencyCode;
     this._fromCurrencyName = fromCurrencyName;
     this._toCurrencyCode = toCurrencyCode;
     this._toCurrencyName = toCurrencyName;
     this._exchangeRate = exchangeRate;
-      //this._date = string;
     this._bidPrice = bidPrice;
+    this._askPrice = askPrice;
+    this._createdAt = createdAt;
   }
 
-  static fromPrimitives({ id, fromCurrencyCode, fromCurrencyName,toCurrencyCode, toCurrencyName, exchangeRate, bidPrice }) {
+  static fromPrimitives({ id, fromCurrencyCode, fromCurrencyName,toCurrencyCode, toCurrencyName, exchangeRate, bidPrice, askPrice, createdAt }) {
     return new Forex({
       id: id,
       fromCurrencyCode: fromCurrencyCode,
@@ -30,11 +30,13 @@ export class Forex {
       toCurrencyCode: toCurrencyCode,
       toCurrencyName: toCurrencyName,
       exchangeRate: exchangeRate,
-      bidPrice: bidPrice
+      bidPrice: bidPrice,
+      askPrice: askPrice,
+      createdAt: createdAt,
     });
   }
 
-  static create({ id = new Types.ObjectId(), fromCurrencyCode, fromCurrencyName,toCurrencyCode, toCurrencyName, exchangeRate, bidPrice }) {
+  static create({ id = new Types.ObjectId(), fromCurrencyCode, fromCurrencyName,toCurrencyCode, toCurrencyName, exchangeRate, bidPrice, askPrice, createdAt }) {
     // if (!code) {
     //   return IncorrectCurrencyError.withCode(code);
     // }
@@ -46,7 +48,9 @@ export class Forex {
       toCurrencyCode: toCurrencyCode,
       toCurrencyName: toCurrencyName,
       exchangeRate: exchangeRate,
-      bidPrice: bidPrice
+      bidPrice: bidPrice,
+      askPrice: askPrice,
+      createdAt: createdAt
     });
   }
 
@@ -67,11 +71,17 @@ export class Forex {
   get toCurrencyName(): string {
     return this._toCurrencyName;
   }
-  get exchangeRate(): string {
+  get exchangeRate(): number {
     return this._exchangeRate;
   }
-  get bidPrice(): string {
+  get bidPrice(): number {
     return this._bidPrice;
+  }
+  get askPrice(): number {
+    return this._askPrice;
+  }
+  get createdAt(): Date {
+    return this._createdAt;
   }
 
   // unsubscribe() {

@@ -4,12 +4,13 @@ import { Request, Response, Router } from "express";
 const forexRouter: Router = Router();
 const forexController = new ForexController();
 
-forexRouter.post("/api/forex", async (req: Request, res: Response) => {
-  forexController.registerForex(req, res);
-});
+// forexRouter.post("/api/forex", async (req: Request, res: Response) => {
+//   forexController.registerForex(req, res);
+// });
 
-forexRouter.get("/api/forex/history/:code", async (req: Request, res: Response) => {
-  forexController.findForexHistoryMax(req, res);
+forexRouter.get("/api/forex/current", async (req: Request, res: Response) => {
+  // forexController.currentValue(req, res);
+  res.send('HOLA FOREX')
 });
 
 // forexRouter.put(

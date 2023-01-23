@@ -6,9 +6,10 @@ const ForexSchema = new Schema(
     fromCurrencyName: String,
     toCurrencyCode: String,
     toCurrencyName: String,
-    exchangeRate: String,
-    // date: String,
-    bidPrice: String,
+    exchangeRate: Number,
+    bidPrice: Number,
+    askPrice: Number,
+    createdAt: Date
   },
   {
     timestamps: true,
