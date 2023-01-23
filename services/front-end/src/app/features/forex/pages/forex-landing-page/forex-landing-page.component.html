@@ -1,6 +1,6 @@
 <div style="margin-top: 30px; display: flex; justify-content: space-between;" *ngIf="subscriptions?.length > 0">
   <div style="margin-top: auto">
-    <h1>Currencies</h1>
+    <h1 id="main-title">CURRENCIES</h1>
   </div>
   <div style="margin-top: 30px; display: flex; justify-content: end;">
     <mat-form-field appearance="fill">
@@ -8,11 +8,6 @@
     <mat-select (selectionChange)="currencyChanged($event)">
       <mat-option *ngFor="let divisa of divisas" [value]="divisa.code">{{divisa.name}}</mat-option>
     </mat-select>
-   <!-- <mat-hint>Errors appear instantly!</mat-hint>
-    <mat-error *ngIf="selected.hasError('required')">You must make a selection</mat-error>
-    <mat-error *ngIf="selected.hasError('pattern') && !selected.hasError('required')">
-      Your selection is invalid
-    </mat-error>-->
   </mat-form-field>
   <button mat-raised-button  style="height : 54px; margin-left: 15px; background-color: rgb(13, 4, 139); color: white" (click)="addNewCurrency()">Subscribe</button>
   </div>
@@ -30,29 +25,7 @@
   </mat-card-header>
   <mat-card-content>
     <div style="display: flex; justify-content: space-between; margin-inline: 19px;">
-      <!-- 1st card to show current val->
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Real time </mat-card-title>
-          <mat-card-subtitle>Current exchange {{ subs.forex?._exchangeRate }}</mat-card-subtitle>
-          <mat-card-subtitle>Bid price {{ subs.forex?._bidPrice }}</mat-card-subtitle>
-          <mat-card-subtitle>Ask price {{ subs.forex?._askPrice }}</mat-card-subtitle>
-          <mat-card-subtitle>Last updated {{ subs.forex?._createdAt || date }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-      <!-- end 1st card to show current val->
-
-      <!-- 1st card to show current val->
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Market closing price yesterday </mat-card-title>
-          <mat-card-subtitle>Current exchange {{ subs.forex?._exchangeRate }}</mat-card-subtitle>
-          <mat-card-subtitle>Bid price {{ subs.forex?._bidPrice }}</mat-card-subtitle>
-          <mat-card-subtitle>Ask price {{ subs.forex?._askPrice }}</mat-card-subtitle>
-          <mat-card-subtitle>Last updated {{ subs.forex?._createdAt || date }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-      <!-- end 1st card to show current val-->
+      <!-- 1st card to show current val-->
       <div class="currency-values-box">
         <div style="display: flex; justify-content: center;">
           <h2 class="title">Real time</h2>
@@ -64,10 +37,9 @@
           <p>Ask price: <span class="transaction-price" style="color: green">{{ subs.currentForex?._askPrice }}</span></p>
           </div>
           <div style="display: flex; justify-content: center;">
-            <p style="font-size: small; font-style: italic; margin-top:30px ">Last updated: {{ subs.currentForex?._createdAt || date }}</p>
+            <p style="font-size: small; font-style: italic; margin-top:30px ">Last update: {{ subs.currentForex?._createdAt | date:'dd-MM-yyyy hh:mm:ss' }}</p>
           </div>
         </div>
-        
       </div>
       <!-- end 1st card to show current val-->
 
@@ -96,7 +68,7 @@
           </p>
         </div>
         <div style="display: flex; justify-content: center;">
-          <p style="font-size: small; font-style: italic; padding-top: auto; margin-top:30px">Last updated: {{ subs.historyForex?._createdAt  != null ? (subs.historyForex?._createdAt || date) : 'No data registered' }}</p>
+          <p style="font-size: small; font-style: italic; padding-top: auto; margin-top:30px">Last update: {{ subs.historyForex?._createdAt  != null ? (subs.historyForex?._createdAt | date:'dd-MM-yyyy hh:mm:ss' ) : 'No data registered' }}</p>
         </div>
       </div>
       <!-- end 2nd card to show current val-->

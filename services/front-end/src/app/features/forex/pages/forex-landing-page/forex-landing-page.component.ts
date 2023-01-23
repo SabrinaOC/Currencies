@@ -94,8 +94,20 @@ history = {
    * @param event 
    */
   currencyChanged(event) {
-    console.log('CAMBIO SELECT: ', event.value)
-    this.newSelectedCurrency = event.value;
+    if(this.checkIfPossibleSubscription(event.value)){
+      this.newSelectedCurrency = event.value;
+    }
+  }
+
+  checkIfPossibleSubscription(selection: string) : boolean{
+    console.log(this.subscriptions);
+    for(let i = 0; i < this.subscriptions.length; i++){
+      if(this.subscriptions[i]._code === selection){
+        console.log('divisa ya added')
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
@@ -146,14 +158,20 @@ history = {
    * 
    */
   getCurrentValue() {
+    let dateC : Date;
+    let dateH : Date;
     for (const sub of this.subscriptions){
       this.currenciesService.getCurrentValueCurrency(sub._code).subscribe(res => {
         sub.currentForex = res.data;
+        dateC = sub.currentForex._createdAt;
+        sub.currentForex._createdAt = dateC.getHours() + 1;
         console.log(res)
       })
 
       this.currenciesService.getYesterdayValueCurrency(sub._code).subscribe(res => {
         sub.historyForex = res.data;
+        dateH = sub.historyForex._createdAt;
+        sub.historyForex._createdAt = dateH.getHours() + 1;
         console.log('history', res.data)
       })
     }
