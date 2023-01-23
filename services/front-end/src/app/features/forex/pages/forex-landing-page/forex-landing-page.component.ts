@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CurrenciesService } from 'src/app/features/services/currencies.service';
 
 @Component({
@@ -78,7 +79,8 @@ history = {
   form = new FormGroup ({
     divisa: new FormControl()
   })
-  constructor(private currenciesService : CurrenciesService) { }
+  constructor(private currenciesService : CurrenciesService,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.getAllSubscriptions();
@@ -86,7 +88,6 @@ history = {
       console.log('INTERVALO RECAGA DATOS');
       this.getAllSubscriptions();
     }, 300000)
-    // this.subscriptions = []
   }
 
   /**
@@ -99,11 +100,15 @@ history = {
     }
   }
 
+  /**
+   * 
+   * @param selection 
+   * @returns 
+   */
   checkIfPossibleSubscription(selection: string) : boolean{
-    console.log(this.subscriptions);
     for(let i = 0; i < this.subscriptions.length; i++){
       if(this.subscriptions[i]._code === selection){
-        console.log('divisa ya added')
+        this.openSnackBar('Currency already added', 'Close')
         return false;
       }
     }
@@ -112,18 +117,23 @@ history = {
 
   /**
    * 
+   * @param message 
+   * @param action 
+   */
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action);
+  }
+
+  /**
+   * 
    * @param selectedCurrency 
    */
   addNewCurrency(selectedCurrency?: string) {
-    console.log('selectedCurrency param:', selectedCurrency);
-    
     if(selectedCurrency){
       this.newSelectedCurrency = selectedCurrency;
     }
-    console.log('entra en addNewCurrency')
     this.currenciesService.subsribeToCurrency(this.newSelectedCurrency).subscribe(res => {
-      console.log('respuesta de la API: ', res)
-      //refresh data shown
+      //refresh shown data 
       this.getAllSubscriptions();
       this.form.reset();
     })
@@ -135,8 +145,7 @@ history = {
    */
   removeCurrency(currencyCode: string) {
     this.currenciesService.unsubsribeToCurrency(currencyCode).subscribe(res => {
-      console.log('respuesta de la API: ', res)
-      //refresh data shown
+      //refresh shown data 
       this.getAllSubscriptions();
     })
   }
@@ -147,7 +156,6 @@ history = {
   getAllSubscriptions(){
     this.currenciesService.getAllCurrrenciesSubscribed().subscribe(res => {
       this.subscriptions = res.data;
-      console.log('subscripciones: ', this.subscriptions)
       if(this.subscriptions.length > 0){
         this.getCurrentValue();
       }
@@ -158,21 +166,13 @@ history = {
    * 
    */
   getCurrentValue() {
-    let dateC : Date;
-    let dateH : Date;
     for (const sub of this.subscriptions){
       this.currenciesService.getCurrentValueCurrency(sub._code).subscribe(res => {
         sub.currentForex = res.data;
-        dateC = sub.currentForex._createdAt;
-        sub.currentForex._createdAt = dateC.getHours() + 1;
-        console.log(res)
       })
 
       this.currenciesService.getYesterdayValueCurrency(sub._code).subscribe(res => {
         sub.historyForex = res.data;
-        dateH = sub.historyForex._createdAt;
-        sub.historyForex._createdAt = dateH.getHours() + 1;
-        console.log('history', res.data)
       })
     }
   }

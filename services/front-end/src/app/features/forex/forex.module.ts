@@ -11,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 export const loader = ['en', 'es'].reduce((acc, lang) => {
   acc[lang] = () => import(`./i18n/forex.${lang}.json`);
@@ -30,7 +31,8 @@ export const loader = ['en', 'es'].reduce((acc, lang) => {
     MatFormFieldModule,
     MatSelectModule,
     MatTooltipModule,
-    MatIconModule
+    MatIconModule,
+    MatSnackBarModule
   ],
   providers: [
     {

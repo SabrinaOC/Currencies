@@ -37,7 +37,7 @@
           <p>Ask price: <span class="transaction-price" style="color: green">{{ subs.currentForex?._askPrice }}</span></p>
           </div>
           <div style="display: flex; justify-content: center;">
-            <p style="font-size: small; font-style: italic; margin-top:30px ">Last update: {{ subs.currentForex?._createdAt | date:'dd-MM-yyyy hh:mm:ss' }}</p>
+            <p style="font-size: small; font-style: italic; margin-top:30px ">Last update: {{ subs.currentForex?._createdAt | date:'dd-MM-yyyy h:mm:ss a' }}</p>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@
           </p>
         </div>
         <div style="display: flex; justify-content: center;">
-          <p style="font-size: small; font-style: italic; padding-top: auto; margin-top:30px">Last update: {{ subs.historyForex?._createdAt  != null ? (subs.historyForex?._createdAt | date:'dd-MM-yyyy hh:mm:ss' ) : 'No data registered' }}</p>
+          <p style="font-size: small; font-style: italic; padding-top: auto; margin-top:30px">Last update: {{ subs.historyForex?._createdAt  != null ? (subs.historyForex?._createdAt | date:'dd-MM-yyyy h:mm:ss a' ) : 'No data registered' }}</p>
         </div>
       </div>
       <!-- end 2nd card to show current val-->
