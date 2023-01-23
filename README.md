@@ -18,10 +18,10 @@ Find here some screenshots showing its main functionalities:
 </p>
 
 <p align="center">
-  <img width="630" src="./screenshots/mainRes.PNG"/>
+  <img width="330" src="./screenshots/mainRes.PNG"/>
 </p>
 
 3. Error message displayed when trying to subscribed to a currency that has already been followed.
 <p align="center">
-  <img width="630" src="./screenshots/snackbar.PNG"/>
+  <img width="330" src="./screenshots/snackbar.PNG"/>
 </p>
