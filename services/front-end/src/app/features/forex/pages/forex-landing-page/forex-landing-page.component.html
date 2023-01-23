@@ -23,21 +23,58 @@
     <mat-card-title>{{subs._code}} / EUR</mat-card-title>
     <mat-card-subtitle>Following</mat-card-subtitle>
   </mat-card-header>
- <!-- <mat-card-content>
-    <p>Divisas</p>
-    <p>lalal</p>
-    <mat-divider></mat-divider>
-  </mat-card-content> -->
-  <mat-card-actions>
-    <button mat-button color="secondary" (click)="removeCurrency(subs._code)">Unsubscribe</button>
-    <button mat-button>SHARE</button>
+  <mat-card-content>
+    <div style="display: flex; justify-content: space-between; margin-inline: 19px;">
+      <!-- 1st card to show current val->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Real time </mat-card-title>
+          <mat-card-subtitle>Current exchange {{ subs.forex?._exchangeRate }}</mat-card-subtitle>
+          <mat-card-subtitle>Bid price {{ subs.forex?._bidPrice }}</mat-card-subtitle>
+          <mat-card-subtitle>Ask price {{ subs.forex?._askPrice }}</mat-card-subtitle>
+          <mat-card-subtitle>Last updated {{ subs.forex?._createdAt || date }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <!-- end 1st card to show current val->
+
+      <!-- 1st card to show current val->
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Market closing price yesterday </mat-card-title>
+          <mat-card-subtitle>Current exchange {{ subs.forex?._exchangeRate }}</mat-card-subtitle>
+          <mat-card-subtitle>Bid price {{ subs.forex?._bidPrice }}</mat-card-subtitle>
+          <mat-card-subtitle>Ask price {{ subs.forex?._askPrice }}</mat-card-subtitle>
+          <mat-card-subtitle>Last updated {{ subs.forex?._createdAt || date }}</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <!-- end 1st card to show current val-->
+      <div class="currency-values-box">
+          <mat-card-title>Real time </mat-card-title>
+          <mat-card-subtitle>Exchange rate {{ subs.currentForex?._exchangeRate }}</mat-card-subtitle>
+          <mat-card-subtitle>Bid price {{ subs.currentForex?._bidPrice }}</mat-card-subtitle>
+          <mat-card-subtitle>Ask price {{ subs.currentForex?._askPrice }}</mat-card-subtitle>
+          <mat-card-subtitle>Last updated {{ subs.currentForex?._createdAt || date }}</mat-card-subtitle>
+      </div>
+      <!-- end 1st card to show current val-->
+      <div class="currency-values-box">
+        <mat-card-title>Market closing price yesterday</mat-card-title>
+        <mat-card-subtitle>Exchange rate {{ subs.historyForex?._exchangeRate != null ? subs.historyForex?._exchangeRate : 'No data registered'}}</mat-card-subtitle>
+        <mat-card-subtitle>Bid price {{ subs.historyForex?._bidPrice  != null ? subs.historyForex?._bidPrice : 'No data registered'}}</mat-card-subtitle>
+        <mat-card-subtitle>Ask price {{ subs.historyForex?._askPrice  != null ? subs.historyForex?._askPrice : 'No data registered'}}</mat-card-subtitle>
+        <mat-card-subtitle>Last updated {{ subs.historyForex?._createdAt  != null ? (subs.historyForex?._createdAt || date) : 'No data registered' }}</mat-card-subtitle>
+    </div>
+    </div>
+  </mat-card-content>
+  <mat-card-actions style="display: flex; justify-content: end;">
+    <button mat-raised-button style="width: 100%; margin-inline: 20px; background-color: rgb(150, 2, 2); color: white" (click)="removeCurrency(subs._code)">STOP FOLLOWING</button>
   </mat-card-actions>
   <mat-card-footer>
   </mat-card-footer>
 </mat-card>
 <mat-divider></mat-divider>
+<!-- VIEW SHOWN WHEN NO CURRENCY FOLLOWED -->
 <ng-container *ngIf="subscriptions?.length === 0">
-  <div style="display: flex; justify-content: center; margin-top: 20px;">
+  <div style="display: flex; justify-content: center; margin-top: 25px;">
     <h1>Subscribe to your fist currency</h1>
   </div>
   <div class="first-select">

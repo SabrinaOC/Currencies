@@ -20,13 +20,12 @@ currencyRouter.put(
   }
 );
 
-currencyRouter.get("/api/forex", (req, res) => {
-  res.send('HOLA CARACOLA')
+currencyRouter.get("/api/forex/history/:code", (req, res) => {
+  forexController.yesterdayValue(req, res);
 })
 
 currencyRouter.get("/api/forex/current/:code", async (req: Request, res: Response) => {
-  res.send('HOLA HOLA')
-  // forexController.currentValue(req, res);
+  forexController.currentValue(req, res);
 });
 
 export default currencyRouter;

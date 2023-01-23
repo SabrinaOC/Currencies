@@ -43,4 +43,24 @@ export class CurrenciesService {
     const url = `${this.apiUrl}currency/${currencyCode}`;
     return this.http.put(url, {});
   }
+
+  /**
+   * 
+   * @param currencyCode 
+   * @returns 
+   */
+  public getCurrentValueCurrency(currencyCode: string): Observable<any> {
+    const url = `${this.apiUrl}forex/current/${currencyCode}`;
+    return this.http.get(url, {});
+  }
+
+  /**
+   * 
+   * @param currencyCode 
+   * @returns 
+   */
+  public getYesterdayValueCurrency(currencyCode: string): Observable<any> {
+    const url = `${this.apiUrl}forex/history/${currencyCode}`;
+    return this.http.get(url, {});
+  }
 }

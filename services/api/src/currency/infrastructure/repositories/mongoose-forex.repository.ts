@@ -6,15 +6,15 @@ import ForexSchema from "../schema/mongoose-forex.schema";
 export class MongooseForexRepository implements IForexRepository {
   private toDomain(forexDB) {
     return Forex.fromPrimitives({
-      id: forexDB[0]._id,
-      fromCurrencyCode: forexDB[0].fromCurrencyCode,
-      fromCurrencyName: forexDB[0].fromCurrencyName,
-      toCurrencyCode: forexDB[0].toCurrencyCode,
-      toCurrencyName: forexDB[0].toCurrencyName,
-      exchangeRate: forexDB[0].exchangeRate,
-      bidPrice: forexDB[0].bidPrice,
-      askPrice: forexDB[0].askPrice,
-      createdAt: forexDB[0].createdAt
+      id: forexDB._id,
+      fromCurrencyCode: forexDB.fromCurrencyCode,
+      fromCurrencyName: forexDB.fromCurrencyName,
+      toCurrencyCode: forexDB.toCurrencyCode,
+      toCurrencyName: forexDB.toCurrencyName,
+      exchangeRate: forexDB.exchangeRate,
+      bidPrice: forexDB.bidPrice,
+      askPrice: forexDB.askPrice,
+      createdAt: forexDB.createdAt
     });
   }
 
@@ -27,20 +27,40 @@ export class MongooseForexRepository implements IForexRepository {
       toCurrencyName: forex.toCurrencyName,
       exchangeRate: forex.exchangeRate,
       bidPrice: forex.bidPrice,
-      askPrice: forex.askPrice
+      askPrice: forex.askPrice,
+      createdAt: forex.createdAt
     };
   }
 
-  async registerForex(forex: Forex): Promise<void> {
-    const mongooseForex = this.fromDomain(forex);
-    await ForexSchema.create(mongooseForex);
-  }
+  // async registerForex(forex: Forex): Promise<void> {
+  //   const mongooseForex = this.fromDomain(forex);
+  //   await ForexSchema.create(mongooseForex);
+  // }
 
   async getCurrentValue(currencyCode: string): Promise<Forex> {
     const currentForexData = await ForexSchema.find({
       fromCurrencyCode: currencyCode,
     }).sort({ createdAt: -1 }).limit(1);
     console.log('RESULTADO CONSULTA = ', currentForexData)
-    return currentForexData === null ? null : this.toDomain(currentForexData);
+    return currentForexData === null || currentForexData.length === 0 ? null : this.toDomain(currentForexData[0]);
+  }
+
+  async getYesterdayValue(currencyCode: string): Promise<Forex> {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const currentForexData = await ForexSchema.find({
+      createdAt: {
+        $gte: yesterday,
+        $lt: today
+      },
+      fromCurrencyCode: currencyCode
+    }).sort({ createdAt: -1 }).limit(1);
+    console.log('RESULTADO CONSULTA HISTORIC = ', currentForexData)
+    return currentForexData === null || currentForexData.length === 0 ? null : this.toDomain(currentForexData[0]);
   }
 }

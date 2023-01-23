@@ -9,29 +9,34 @@ import { CurrenciesService } from 'src/app/features/services/currencies.service'
 })
 export class ForexLandingPageComponent implements OnInit {
   divisas = [
-    // {
-    //   name: 'Euro',
-    //   code: 'EuR'
-    // },
     {
       name: 'United States Dollar',
-      code: 'UsD'
+      code: 'USD',
+      currentForex: {},
+      historyForex: {}
     },
-    {
-      name: 'Argentine Peso',
-      code: 'ARS'
-    },
+    // {
+    //   name: 'Argentine Peso',
+    //   code: 'ARS',
+    //   forex: null
+    // },
     {
       name: 'British Pound Sterling',
-      code: 'GBP'
+      code: 'GBP',
+      currentForex: {},
+      historyForex: {}
     },
     {
       name: 'Colombian Peso',
-      code: 'COP'
+      code: 'COP',
+      currentForex: {},
+      historyForex: {}
     },
     {
       name: 'Chinese Yuan',
-      code: 'CNY'
+      code: 'CNY',
+      currentForex: {},
+      historyForex: {}
     }
 ];
   newSelectedCurrency: string;
@@ -43,6 +48,10 @@ export class ForexLandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllSubscriptions();
+    setInterval(() => {
+      console.log('INTERVALO RECAGA DATOS');
+      this.getAllSubscriptions();
+    }, 300000)
   }
 
   /**
@@ -92,7 +101,27 @@ export class ForexLandingPageComponent implements OnInit {
     this.currenciesService.getAllCurrrenciesSubscribed().subscribe(res => {
       this.subscriptions = res.data;
       console.log('subscripciones: ', this.subscriptions)
+      if(this.subscriptions.length > 0){
+        this.getCurrentValue();
+      }
     })
+  }
+
+  /**
+   * 
+   */
+  getCurrentValue() {
+    for (const sub of this.subscriptions){
+      this.currenciesService.getCurrentValueCurrency(sub._code).subscribe(res => {
+        sub.currentForex = res.data;
+        console.log(res)
+      })
+
+      this.currenciesService.getYesterdayValueCurrency(sub._code).subscribe(res => {
+        sub.historyForex = res.data;
+        console.log('history', res.data)
+      })
+    }
   }
 
 }

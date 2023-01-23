@@ -5,14 +5,15 @@ import {
   UnsubscribeCurrency,
 } from "@app/currency/application";
 import { DomainError } from "@app/utils";
-import { RegisterForex } from "@app/currency/application/registerForex";
 import { GetCurrentValue } from "@app/currency/application/get-current-value";
+import { GetYesterdayValue } from "@app/currency/application/get-yesterday-value";
 
 export class ForexController {
   // private registerForexData = new RegisterForex({});
-  private getSubscribedCurrencies = new GetSubscribedCurrencies({});
-  private unsubscribeCurrency = new UnsubscribeCurrency({});
+  // private getSubscribedCurrencies = new GetSubscribedCurrencies({});
+  // private unsubscribeCurrency = new UnsubscribeCurrency({});
   private getCurrentValue = new GetCurrentValue({})
+  private getYesterdayValue = new GetYesterdayValue({})
 
   // async registerForex(req: Request, res: Response) {
   //   try {
@@ -40,17 +41,17 @@ export class ForexController {
     }
   }
 
-  // async unsubscribe(req: Request, res: Response) {
-  //   try {
-  //     const currency = await this.unsubscribeCurrency.execute(req.params.code);
-  //     res.status(200).json({ data: currency });
-  //   } catch (err) {
-  //     let status = 500;
-  //     if (err instanceof DomainError) {
-  //       status = 400;
-  //     }
-  //     res.status(status).json({ data: err.message });
-  //   }
-  // }
+  async yesterdayValue(req: Request, res: Response) {
+    try {
+      const forex = await this.getYesterdayValue.execute(req.params.code);
+      res.status(200).json({ data: forex });
+    } catch (err) {
+      let status = 500;
+      if (err instanceof DomainError) {
+        status = 400;
+      }
+      res.status(status).json({ data: err.message });
+    }
+  }
 
 }
