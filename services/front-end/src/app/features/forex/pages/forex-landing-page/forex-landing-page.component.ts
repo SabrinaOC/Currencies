@@ -8,39 +8,73 @@ import { CurrenciesService } from 'src/app/features/services/currencies.service'
   styleUrls: ['./forex-landing-page.component.scss']
 })
 export class ForexLandingPageComponent implements OnInit {
-  divisas = [
+  divisas = [ //'UsD', 'AUD','GBP', 'JPY', 'NZD' API allows just 5 per minute 
     {
       name: 'United States Dollar',
       code: 'USD',
-      currentForex: {},
-      historyForex: {}
+      // currentForex: {},
+      // historyForex: {}
     },
-    // {
-    //   name: 'Argentine Peso',
-    //   code: 'ARS',
-    //   forex: null
-    // },
+    {
+      name: 'Australian Dollar', 
+      code: 'AUD',
+      // currentForex: {},
+      // historyForex: {}
+    },
     {
       name: 'British Pound Sterling',
       code: 'GBP',
-      currentForex: {},
-      historyForex: {}
+      // currentForex: {},
+      // historyForex: {}
     },
     {
-      name: 'Colombian Peso',
-      code: 'COP',
-      currentForex: {},
-      historyForex: {}
+      name: 'Japanese Yen',
+      code: 'JPY',
+      // currentForex: {},
+      // historyForex: {}
     },
     {
-      name: 'Chinese Yuan',
-      code: 'CNY',
-      currentForex: {},
-      historyForex: {}
-    }
+      name: 'New Zealand Dollar',
+      code: 'NZD',
+      // currentForex: {},
+      // historyForex: {}
+    },
+    // {
+    //   name: 'Chinese Yuan',
+    //   code: 'CNY',
+    //   currentForex: {},
+    //   historyForex: {}
+    // }
 ];
+
+// variables para no tirar de servicios y dise;ar front//
+current = {
+  "_id": "63ce7dd0f158ccfec4b232fd",
+  "_fromCurrencyCode": "GBP",
+  "_fromCurrencyName": "British Pound Sterling",
+  "_toCurrencyCode": "EUR",
+  "_toCurrencyName": "Euro",
+  "_exchangeRate": 1.13676,
+  "_bidPrice": 1.136716,
+  "_askPrice": 1.136814,
+  "_createdAt": "2023-01-23T12:30:08.265Z"
+}
+
+history = {
+  "_id": "63ce700a1935f695e9d182c6",
+  "_fromCurrencyCode": "USD",
+  "_fromCurrencyName": "United States Dollar",
+  "_toCurrencyCode": "EUR",
+  "_toCurrencyName": "Euro",
+  "_exchangeRate": 0.5,
+  "_bidPrice": 0.8,
+  "_askPrice": 0.91791,
+  "_createdAt": "2023-01-22T23:20:08.110Z"
+}
+
+/// FIHN
   newSelectedCurrency: string;
-  subscriptions: any;
+  subscriptions : any;
   form = new FormGroup ({
     divisa: new FormControl()
   })
@@ -52,6 +86,7 @@ export class ForexLandingPageComponent implements OnInit {
       console.log('INTERVALO RECAGA DATOS');
       this.getAllSubscriptions();
     }, 300000)
+    // this.subscriptions = []
   }
 
   /**

@@ -8,8 +8,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { FormControl } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 
 export const loader = ['en', 'es'].reduce((acc, lang) => {
   acc[lang] = () => import(`./i18n/forex.${lang}.json`);
@@ -27,7 +28,9 @@ export const loader = ['en', 'es'].reduce((acc, lang) => {
     MatDividerModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule,
+    MatIconModule
   ],
   providers: [
     {

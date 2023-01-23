@@ -2,7 +2,7 @@
  import * as mongoose from "mongoose";
 //  import { forkJoin } from 'rxjs';
 var FOREX_API_KEY = 'B9U2J4UKZTMRB030';
-var currenciesAvailable = ['GBP', 'UsD', 'CNY']
+var currenciesAvailable = ['UsD', 'AUD','GBP', 'JPY', 'NZD']
 var generalIndexFollowUP: number = -1;
 const forexSchema = new mongoose.Schema(
     {
@@ -23,25 +23,6 @@ const forexSchema = new mongoose.Schema(
 
   const Forex = mongoose.model("Forex", forexSchema)
 
-// export const retrieveData = () : Promise<any> => {
-
-//     "Fetching...".concat("DATA!");
-//     // var url = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=${fromCurrency}&to_currency=EuR&apikey=${FOREX_API_KEY}`;
-    
-
-//     return new Promise((resolve, reject) => {
-
-//         fetch(`${url}`,
-//         {headers: {'User-Agent': 'request'}, method: 'GET'})
-//         .then(response => response.json())
-//         .then(data => {
-//             console.log('RES SERVICE = ', data)
-//             saveServiceResIntoSchema(data);
-//             resolve({data})
-//         })
-//         .catch(err => {reject({error: err})})
-//     })
-// }
 
 export const retrieveData = () => {
 

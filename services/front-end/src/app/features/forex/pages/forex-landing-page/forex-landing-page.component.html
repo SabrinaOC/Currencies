@@ -22,6 +22,11 @@
   <mat-card-header>
     <mat-card-title>{{subs._code}} / EUR</mat-card-title>
     <mat-card-subtitle>Following</mat-card-subtitle>
+    <div style="display: flex; margin-left:auto">
+      <img src="../../../../../assets/images/flags/{{subs._code}}.png" style="width: 38px; height: 38px; margin-right: 15px;">
+      <mat-icon aria-hidden="false" fontIcon="arrow_right" style="margin-top: 8px; margin-right: 15px;"></mat-icon>
+      <img src="../../../../../assets/images/flags/EUR.png" style="width: 38px; height: 38px;">
+    </div>
   </mat-card-header>
   <mat-card-content>
     <div style="display: flex; justify-content: space-between; margin-inline: 19px;">
@@ -75,11 +80,12 @@
 <!-- VIEW SHOWN WHEN NO CURRENCY FOLLOWED -->
 <ng-container *ngIf="subscriptions?.length === 0">
   <div style="display: flex; justify-content: center; margin-top: 25px;">
-    <h1>Subscribe to your fist currency</h1>
+    <h1 matTooltip="Click on a card to start following">Subscribe to your first currency</h1>
   </div>
   <div class="first-select">
       <mat-card class="fresh-currency-card" *ngFor="let d of divisas" (click)="addNewCurrency(d.code)">
         <mat-card-header>
+          <img mat-card-avatar src="../../../../../assets/images/flags/{{d.code}}.png" alt="{{d.name}}">
           <mat-card-title>{{d.code}}</mat-card-title>
           <mat-card-subtitle>{{d.name}}</mat-card-subtitle>
         </mat-card-header>
