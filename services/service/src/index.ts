@@ -14,8 +14,6 @@ declare var MONGODB_URI: string;
  */
 async function connectToDatabase(connectionUri: string) {
   connectionUri = 'mongodb://root:pass@home-assignment-db:27017/testdb?authSource=admin';
-  console.log('conectando a SAAAA:', connectionUri);
-  
   return new Promise((resolve, reject) => {
     // From mongoose@6.x.x onwards useNewUrlParser, useUnifiedTopology,
     // useCreateIndex are deprecated and default to true
@@ -29,8 +27,6 @@ async function connectToDatabase(connectionUri: string) {
   });
 }
 connectToDatabase(MONGODB_URI).then( mon =>{//'mongodb://root:pass@127.0.0.1:27017/testdb'
-
-  console.log('CONECTADA', mon)
   // [Script execution]
   const retrievedData = retrieveData()//.then(res => {  
   // });

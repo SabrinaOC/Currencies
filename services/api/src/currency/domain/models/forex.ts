@@ -84,11 +84,4 @@ export class Forex {
     return this._createdAt;
   }
 
-  // unsubscribe() {
-  //   if (!this._hasSubscription) {
-  //     return CurrencyNotSubscribedError.withCode(this._code);
-  //   }
-
-  //   this._hasSubscription = false;
-  // }
 }

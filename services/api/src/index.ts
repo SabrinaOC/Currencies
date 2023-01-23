@@ -2,7 +2,6 @@ import * as path from 'path';
 import * as express from 'express';
 import * as mongoose from 'mongoose';
 import currencyRouter from "@app/routes/currency.router";
-import forexRouter from "@app/routes/currency.router";
 
 // [DB Connection]
 
@@ -37,7 +36,6 @@ connectToDatabase(MONGODB_URI);
 const app = express(), DIST_DIR = __dirname;
 app.use(express.static(DIST_DIR));
 app.use(express.json());
-app.use(forexRouter);
 app.use(currencyRouter);
 app.get('/health', async (req, res) => {
   res.status(200).json({ healthy: true });

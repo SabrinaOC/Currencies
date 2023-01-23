@@ -41,7 +41,6 @@ export class MongooseForexRepository implements IForexRepository {
     const currentForexData = await ForexSchema.find({
       fromCurrencyCode: currencyCode,
     }).sort({ createdAt: -1 }).limit(1);
-    console.log('RESULTADO CONSULTA = ', currentForexData)
     return currentForexData === null || currentForexData.length === 0 ? null : this.toDomain(currentForexData[0]);
   }
 
@@ -60,7 +59,6 @@ export class MongooseForexRepository implements IForexRepository {
       },
       fromCurrencyCode: currencyCode
     }).sort({ createdAt: -1 }).limit(1);
-    console.log('RESULTADO CONSULTA HISTORIC = ', currentForexData)
     return currentForexData === null || currentForexData.length === 0 ? null : this.toDomain(currentForexData[0]);
   }
 }
